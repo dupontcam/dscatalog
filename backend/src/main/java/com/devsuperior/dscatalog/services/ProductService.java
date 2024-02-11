@@ -26,6 +26,7 @@ public class ProductService {
     private ProductRepository repository;
     @Autowired
     private CategoryRepository categoryRepository;
+
     @Transactional(readOnly = true)
     public Page<ProductDTO> findAllPaged(Pageable pageable){
         Page<Product> list = repository.findAll(pageable);
