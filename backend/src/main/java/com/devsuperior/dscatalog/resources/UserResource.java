@@ -20,16 +20,19 @@ public class UserResource {
 
     @Autowired
     private UserService service;
+
     @GetMapping
     public ResponseEntity<Page<UserDTO>> findAll(Pageable pageable) {
         Page<UserDTO> page = service.findAllPaged(pageable);
         return ResponseEntity.ok().body(page);
     }
+
     @GetMapping(value = "/{id}")
     public ResponseEntity<UserDTO> findById(@PathVariable Long id) {
         UserDTO dto = service.findById(id);
         return ResponseEntity.ok().body(dto);
     }
+
     @PostMapping
     public ResponseEntity<UserDTO> insert(@Valid @RequestBody UserInsertDTO dto){
         UserDTO  newDto = service.insert(dto);
@@ -37,6 +40,7 @@ public class UserResource {
                 .buildAndExpand(newDto.getId()).toUri();
         return ResponseEntity.created(uri).body(newDto);
     }
+
     @PutMapping(value = "/{id}")
     public ResponseEntity<UserDTO> update(@PathVariable Long id, @Valid @RequestBody UserUpdateDTO dto){
         UserDTO newDto = service.update(id, dto);
@@ -48,6 +52,4 @@ public class UserResource {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
-
-
 }
