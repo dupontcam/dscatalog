@@ -104,7 +104,7 @@ public class UserService implements UserDetailsService {
 
         List<UserDetailsProjection> result = repository.searchUserAndRolesByEmail(username);
         if (result.size() == 0) {
-            throw new UsernameNotFoundException("User not found");
+            throw new UsernameNotFoundException("Email not found");
         }
 
         User user = new User();

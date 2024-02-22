@@ -22,13 +22,14 @@ public class UserResource {
     @Autowired
     private UserService service;
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping
     public ResponseEntity<Page<UserDTO>> findAll(Pageable pageable) {
         Page<UserDTO> page = service.findAllPaged(pageable);
         return ResponseEntity.ok().body(page);
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OPERATOR')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping(value = "/{id}")
     public ResponseEntity<UserDTO> findById(@PathVariable Long id) {
         UserDTO dto = service.findById(id);
